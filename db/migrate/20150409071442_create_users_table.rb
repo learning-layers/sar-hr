@@ -8,8 +8,6 @@ class CreateUsersTable < ActiveRecord::Migration
       t.string :auth_token
 
       t.timestamps
-
-      # t.belongs_to :skill, index: true
     end
 
     add_index :users, :email

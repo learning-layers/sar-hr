@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::API
-  include ActionController::HttpAuthentication::Token
+  acts_as_token_authentication_handler_for User, fallback_to_devise: false
 
-  before_action :authenticate
-
-  private
+  before_action :authenticate_user!
 
   rescue_from ActionController::ParameterMissing do |error|
     render json: missing_parameter(error), status: 422
@@ -17,18 +15,7 @@ class ApplicationController < ActionController::API
     render json: not_found(error), status: 404
   end
 
-  def authenticate
-    current_user || render_unauthorized
-  end
-
-  def current_user
-    User.find_by(auth_token: token_and_options(request))
-  end
-
-  def render_unauthorized
-    headers['WWW-Authenticate'] = 'Token realm="Heureka"'
-    render json: unauthorized, status: 401
-  end
+  private
 
   def missing_parameter(error)
     {

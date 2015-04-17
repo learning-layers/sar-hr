@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'active_model_serializers', '0.8.3'
-gem 'bcrypt'
+gem 'devise'
 gem 'pg'
 gem 'rails', '4.2.1'
 gem 'rails-api'
+gem 'simple_token_authentication', '~> 1.0'
 
 group :development, :test do
   gem 'pry'

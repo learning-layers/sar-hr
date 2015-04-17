@@ -1,19 +1,8 @@
 class User < ActiveRecord::Base
-  before_create :set_auth_token
+  devise :database_authenticatable, :validatable
 
-  validates :email, presence: true, uniqueness: true
+  acts_as_token_authenticatable
+
   validates :first_name, presence: true
   validates :last_name, presence: true
-
-  has_secure_password
-
-  private
-
-  def set_auth_token
-    self.auth_token = generate_token
-  end
-
-  def generate_token
-    SecureRandom.uuid.gsub(/\-/,'')
-  end
 end
