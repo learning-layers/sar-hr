@@ -1,21 +1,15 @@
 {
   "type": "object",
-  "required": ["user"],
+  "required": [
+    "email",
+    "first_name",
+    "id",
+    "last_name"
+  ],
   "properties": {
-    "user" : {
-      "type" : "object",
-      "required" : [
-        "email",
-        "first_name",
-        "id",
-        "last_name"
-      ],
-      "properties" : {
-        "email" : { "type" : "string" },
-        "first_name" : { "type" : "string" },
-        "id" : { "type" : "integer" },
-        "last_name" : { "type" : "string" }
-      }
-    }
+    "email": { "type": "string" },
+    "first_name": { "type": "string" },
+    "id": { "type": "integer" },
+    "last_name": { "type": "string" }
   }
 }
