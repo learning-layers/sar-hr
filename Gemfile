@@ -7,13 +7,14 @@ gem 'rails', '4.2.1'
 gem 'rails-api'
 
 group :development, :test do
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.0'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'pry'
   gem 'spring'
 end
 
