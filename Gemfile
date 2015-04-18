@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Read the ruby version for Heroku
+ruby File.open('.ruby-version', 'r') { |f| f.read.strip }
+
 gem 'active_model_serializers', '0.8.3'
 gem 'devise'
 gem 'pg'
