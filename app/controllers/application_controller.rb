@@ -3,22 +3,16 @@ class ApplicationController < ActionController::API
 
   before_action :authenticate_user!
 
-  rescue_from ActionController::ParameterMissing do |error|
-    render json: missing_parameter(error), status: 422
-  end
-
-  rescue_from ActiveRecord::RecordInvalid do |error|
-    render json: invalid_parameters(error), status: 422
-  end
-
-  rescue_from ActiveRecord::RecordNotFound do |error|
-    render json: not_found(error), status: 404
-  end
+  rescue_from ActionController::ParameterMissing, with: :render_missing
+  rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   private
 
-  def missing_parameter(error)
-    {
+  # TODO: Use serialisers
+
+  def render_missing(error)
+    body = {
       :error => {
         :code => :missing_parameter,
         :parameters => {
@@ -26,30 +20,28 @@ class ApplicationController < ActionController::API
         }
       }
     }
+
+    render json: body, status: 422
   end
 
-  def invalid_parameters(error)
-    {
+  def render_invalid(error)
+    body = {
       :error => {
         :code => :invalid_parameters,
         :parameters => error.record.errors
       }
     }
+
+    render json: body, status: 422
   end
 
-  def not_found(error)
-    {
+  def render_not_found(error)
+    body = {
       :error => {
         :code => :not_found
       }
     }
-  end
 
-  def unauthorized
-    {
-      :error => {
-        :code => :unauthorized
-      }
-    }
+    render json: body, status: 404
   end
 end
