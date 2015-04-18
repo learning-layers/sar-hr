@@ -5,6 +5,7 @@ gem 'devise'
 gem 'pg'
 gem 'rails', '4.2.1'
 gem 'rails-api'
+gem 'rollbar', '~> 1.5.0'
 gem 'simple_token_authentication', '~> 1.0'
 
 group :development, :test do
