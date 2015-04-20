@@ -7,7 +7,7 @@ class CreateUsersTable < ActiveRecord::Migration
       t.string :last_name, :null => false
       t.string :auth_token
 
-      t.timestamps
+      t.timestamps :null => true
     end
 
     add_index :users, :email
