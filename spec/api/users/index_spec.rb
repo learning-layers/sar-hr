@@ -13,12 +13,12 @@ RSpec.describe 'GET /users' do
       end
 
       its(:status) { should eq 200 }
-      its(:body)   { should match_schema :user_collection }
+      its(:body)   { should match_schema('users/collection') }
     end
 
     context 'when there are no users' do
       its(:status) { should eq 200 }
-      its(:body)   { should match_schema :user_collection }
+      its(:body)   { should match_schema('users/collection') }
     end
   end
 
@@ -28,6 +28,6 @@ RSpec.describe 'GET /users' do
     end
 
     its(:status) { should eq 401 }
-    its(:body)   { should match_schema :error }
+    its(:body)   { should match_schema('error') }
   end
 end

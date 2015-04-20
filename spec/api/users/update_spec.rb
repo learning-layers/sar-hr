@@ -18,7 +18,7 @@ RSpec.describe 'PATCH /users/:id' do
 
     context 'when valid data is submitted' do
       its(:status) { should eq 200 }
-      its(:body)   { should match_schema :user_instance }
+      its(:body)   { should match_schema('users/instance') }
 
       it 'has updated attributes' do
         fetched_value = parse_json(body, 'user/email')
@@ -38,7 +38,7 @@ RSpec.describe 'PATCH /users/:id' do
       }
 
       its(:status) { should eq 422 }
-      its(:body)   { should match_schema :error }
+      its(:body)   { should match_schema('error') }
     end
   end
 
@@ -48,6 +48,6 @@ RSpec.describe 'PATCH /users/:id' do
     end
 
     its(:status) { should eq 401 }
-    its(:body)   { should match_schema :error }
+    its(:body)   { should match_schema('error') }
   end
 end

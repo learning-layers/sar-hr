@@ -18,7 +18,7 @@ RSpec.describe 'DELETE /users/:id' do
       let(:id) { '123123' }
 
       its(:status) { should eq 404 }
-      its(:body)   { should match_schema :error }
+      its(:body)   { should match_schema('error') }
     end
   end
 
@@ -28,6 +28,6 @@ RSpec.describe 'DELETE /users/:id' do
     end
 
     its(:status) { should eq 401 }
-    its(:body)   { should match_schema :error }
+    its(:body)   { should match_schema('error') }
   end
 end

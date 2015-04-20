@@ -1,12 +1,16 @@
 {
   "type": "object",
-  "required": ["error"],
+  "required": [
+    "error"
+  ],
+  "additionalProperties": false,
   "properties": {
     "error": {
       "type": "object",
       "required": [
         "code"
       ],
+      "additionalProperties": false,
       "properties": {
         "code": { "type": "string" },
         "parameters": { "type": "object" }

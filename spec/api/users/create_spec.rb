@@ -10,14 +10,14 @@ RSpec.describe 'POST /users' do
 
     context 'when valid data is submitted' do
       its(:status) { should eq 201 }
-      its(:body)   { should match_schema :user_instance }
+      its(:body)   { should match_schema('users/instance') }
     end
 
     context 'when invalid data is submitted' do
       let(:params) { {} }
 
       its(:status) { should eq 422 }
-      its(:body)   { should match_schema :error }
+      its(:body)   { should match_schema('error') }
     end
   end
 
@@ -27,6 +27,6 @@ RSpec.describe 'POST /users' do
     end
 
     its(:status) { should eq 401 }
-    its(:body)   { should match_schema :error }
+    its(:body)   { should match_schema('error') }
   end
 end

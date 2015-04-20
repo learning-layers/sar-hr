@@ -11,14 +11,14 @@ RSpec.describe 'GET /users/:id' do
 
     context 'when a valid user is requested' do
       its(:status) { should eq 200 }
-      its(:body)   { should match_schema :user_instance }
+      its(:body)   { should match_schema('users/instance') }
     end
 
     context 'when an invalid user is requested' do
       let(:id) { '123123' }
 
       its(:status) { should eq 404 }
-      its(:body)   { should match_schema :error }
+      its(:body)   { should match_schema('error') }
     end
   end
 
@@ -28,6 +28,6 @@ RSpec.describe 'GET /users/:id' do
     end
 
     its(:status) { should eq 401 }
-    its(:body)   { should match_schema :error }
+    its(:body)   { should match_schema('error') }
   end
 end
