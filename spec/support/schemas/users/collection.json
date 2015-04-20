@@ -7,7 +7,7 @@
   "properties": {
     "users": {
       "type": "array",
-      "items": { "$ref": "user.json" }
+      "items": { "$ref": "user_stub.json" }
     }
   }
 }

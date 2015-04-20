@@ -3,16 +3,12 @@
   "required": [
     "email",
     "id",
-    "name",
-    "first_name",
-    "last_name"
+    "name"
   ],
   "additionalProperties": false,
   "properties": {
     "email": { "type": "email" },
     "id":    { "type": "integer" },
-    "name":       { "type": "string" },
-    "first_name": { "type": "string" },
-    "last_name":  { "type": "string" }
+    "name":  { "type": "string" }
   }
 }
