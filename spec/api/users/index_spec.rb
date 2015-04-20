@@ -7,7 +7,7 @@ RSpec.describe 'GET /users' do
     end
 
     context 'when there are users' do
-      before(:all) do
+      before do
         create(:user)
         create(:user)
       end
