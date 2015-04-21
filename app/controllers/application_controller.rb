@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
   #   render json: authorize(User.all)
   #
   def authorize(record, query = nil)
-    return record if super(record, query)
+    record if super(record, query)
   end
 
   private
