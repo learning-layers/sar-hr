@@ -4,9 +4,9 @@ RSpec.describe 'DELETE /users/:id' do
   let(:user) { create(:user) }
   let(:id)   { user.id }
 
-  context 'with an authenticated user' do
+  context 'with an admin' do
     before do
-      delete_with_auth "/users/#{id}"
+      delete_with_auth "/users/#{id}", nil, nil, user: create(:admin)
     end
 
     context 'when a valid user is requested' do
@@ -22,7 +22,27 @@ RSpec.describe 'DELETE /users/:id' do
     end
   end
 
-  context 'with an unauthenticated user' do
+  context 'with a user' do
+    context 'when target is not self' do
+      before do
+        delete_with_auth "/users/#{id}"
+      end
+
+      its(:status) { should eq 403 }
+      its(:body)   { should match_schema('error') }
+    end
+
+    context 'when target is self' do
+      before do
+        delete_with_auth "/users/#{id}", nil, nil, user: user
+      end
+
+      its(:status) { should eq 204 }
+      its(:body)   { should be_empty }
+    end
+  end
+
+  context 'with a visitor' do
     before do
       delete "/users/#{id}"
     end

@@ -1,7 +1,7 @@
 RSpec.describe 'GET /users' do
   subject { response }
 
-  context 'with an authenticated user' do
+  context 'with a user' do
     before do
       get_with_auth '/users'
     end
@@ -22,7 +22,7 @@ RSpec.describe 'GET /users' do
     end
   end
 
-  context 'with an unauthenticated user' do
+  context 'with a visitor' do
     before do
       get '/users'
     end

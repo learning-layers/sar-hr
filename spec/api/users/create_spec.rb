@@ -3,9 +3,9 @@ RSpec.describe 'POST /users' do
 
   let(:params) { { :user => attributes_for(:user) } }
 
-  context 'with an authenticated user' do
+  context 'with an admin' do
     before do
-      post_with_auth '/users', params
+      post_with_auth '/users', params, nil, user: create(:admin)
     end
 
     context 'when valid data is submitted' do
@@ -21,7 +21,16 @@ RSpec.describe 'POST /users' do
     end
   end
 
-  context 'with an unauthenticated user' do
+  context 'with a user' do
+    before do
+      post_with_auth '/users', params
+    end
+
+    its(:status) { should eq 403 }
+    its(:body)   { should match_schema('error') }
+  end
+
+  context 'with a visitor' do
     before do
       post '/users', params
     end

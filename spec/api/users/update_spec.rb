@@ -11,9 +11,9 @@ RSpec.describe 'PATCH /users/:id' do
     }
   }
 
-  context 'with an authenticated user' do
+  context 'with an admin' do
     before do
-      patch_with_auth "/users/#{user.id}", params
+      patch_with_auth "/users/#{user.id}", params, nil, user: create(:admin)
     end
 
     context 'when valid data is submitted' do
@@ -42,7 +42,34 @@ RSpec.describe 'PATCH /users/:id' do
     end
   end
 
-  context 'with an unauthenticated user' do
+  context 'with a user' do
+    context 'when target is not self' do
+      before do
+        patch_with_auth "/users/#{user.id}", params
+      end
+
+      its(:status) { should eq 403 }
+      its(:body)   { should match_schema('error') }
+    end
+
+    context 'when target is self' do
+      before do
+        patch_with_auth "/users/#{user.id}", params, nil, user: user
+      end
+
+      its(:status) { should eq 200 }
+      its(:body)   { should match_schema('users/instance') }
+
+      it 'has updated attributes' do
+        fetched_value = parse_json(body, 'user/email')
+        changed_value = params[:user][:email]
+
+        expect(fetched_value).to eq(changed_value)
+      end
+    end
+  end
+
+  context 'with a visitor' do
     before do
       patch "/users/#{user.id}", params
     end
