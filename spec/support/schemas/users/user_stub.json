@@ -5,7 +5,8 @@
     "id",
     "name",
     "first_name",
-    "last_name"
+    "last_name",
+    "status"
   ],
   "additionalProperties": false,
   "properties": {
@@ -13,6 +14,7 @@
     "id":         { "type": "integer" },
     "name":       { "type": "string" },
     "first_name": { "type": "string" },
-    "last_name":  { "type": "string" }
+    "last_name":  { "type": "string" },
+    "status":     { "enum": [ "offline", "available", "do_not_disturb" ] }
   }
 }

@@ -5,7 +5,8 @@
     "id",
     "name",
     "first_name",
-    "last_name"
+    "last_name",
+    "status"
   ],
   "additionalProperties": false,
   "properties": {
@@ -14,6 +15,7 @@
     "name":       { "type": "string" },
     "first_name": { "type": "string" },
     "last_name":  { "type": "string" },
-    "role":       { "enum": [ "unprivileged", "admin" ] }
+    "role":       { "enum": [ "unprivileged", "admin" ] },
+    "status":     { "enum": [ "offline", "available", "do_not_disturb" ] }
   }
 }
