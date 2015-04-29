@@ -6,28 +6,28 @@ RSpec.describe UserPolicy do
   context 'with a user' do
     let(:user) { create(:user) }
 
-    it { should allow(:index) }
-    it { should allow(:show) }
+    it { should permit_action(:index) }
+    it { should permit_action(:show) }
 
-    it { should_not allow(:create) }
-    it { should_not allow(:update) }
-    it { should_not allow(:destroy) }
+    it { should_not permit_action(:create) }
+    it { should_not permit_action(:update) }
+    it { should_not permit_action(:destroy) }
 
     context 'when modifying self' do
       let(:user_resource) { user }
 
-      it { should allow(:update) }
-      it { should allow(:destroy) }
+      it { should permit_action(:update) }
+      it { should permit_action(:destroy) }
     end
   end
 
   context 'with an admin' do
     let(:user) { create(:admin) }
 
-    it { should allow(:index) }
-    it { should allow(:show) }
-    it { should allow(:create) }
-    it { should allow(:update) }
-    it { should allow(:destroy) }
+    it { should permit_action(:index) }
+    it { should permit_action(:show) }
+    it { should permit_action(:create) }
+    it { should permit_action(:update) }
+    it { should permit_action(:destroy) }
   end
 end
