@@ -14,15 +14,21 @@ RSpec::Matchers.define :match_schema do |schema|
     expect(@result).to eq([])
   end
 
-  failure_message do
+  failure_message do |body|
+    messages + "\n\n" + body
+  end
+
+  description do
+    "match the JSON schema '#{schema}'"
+  end
+
+  private
+
+  def messages
     if @result.respond_to? :join
       @result.join("\n")
     else
       @result
     end
-  end
-
-  description do
-    "match the JSON schema '#{schema}'"
   end
 end
