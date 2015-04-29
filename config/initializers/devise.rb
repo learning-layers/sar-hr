@@ -244,6 +244,7 @@ Devise.setup do |config|
   # end
   config.warden do |manager|
     manager.failure_app = DeviseJSONFailure
+    manager.default_strategies(scope: :user).unshift(:token_authentication)
   end
 
   # ==> Mountable engine configurations

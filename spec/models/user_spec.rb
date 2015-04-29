@@ -1,21 +1,21 @@
 RSpec.describe User do
-  it 'should have a valid user factory' do
-    user = create(:user)
+  subject { build(user_type) }
 
-    expect(user).to be_valid
-    expect(user.role).to eq('unprivileged')
+  let(:user_type) { :user }
+
+  describe 'user factory' do
+    it { should be_valid }
+    its(:role) { should eq('unprivileged') }
   end
 
-  it 'should have a valid admin factory' do
-    admin = create(:admin)
+  describe 'admin factory' do
+    let(:user_type) { :admin }
 
-    expect(admin).to be_valid
-    expect(admin.role).to eq('admin')
+    it { should be_valid }
+    its(:role) { should eq('admin') }
   end
 
   describe 'validations' do
-    subject { build(:user) }
-
     it { should validate_presence_of(:email) }
     it { should validate_uniqueness_of(:email) }
 
@@ -24,7 +24,24 @@ RSpec.describe User do
 
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
+  end
 
+  describe 'attributes' do
+    it { should define_enum_for(:role) }
     it { should have_readonly_attribute(:role) }
+  end
+
+  describe 'associations' do
+    it { should have_one(:token_set) }
+
+    it { should delegate_method(:tokens).to(:token_set) }
+    it { should delegate_method(:add_token).to(:token_set) }
+    it { should delegate_method(:has_token?).to(:token_set) }
+    it { should delegate_method(:remove_token).to(:token_set) }
+
+    it 'should create a token set when saved' do
+      subject.save!
+      expect(subject.token_set).to be_a(TokenSet)
+    end
   end
 end

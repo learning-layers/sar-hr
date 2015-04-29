@@ -1,11 +1,8 @@
 class ApplicationController < ActionController::API
   include Pundit
 
-  acts_as_token_authentication_handler_for User, fallback_to_devise: false
-
   before_action :authenticate_user!
-
-  after_action :verify_authorized
+  after_action  :verify_authorized
 
   rescue_from ActionController::ParameterMissing, with: :render_missing
   rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
