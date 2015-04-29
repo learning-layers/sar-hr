@@ -31,6 +31,8 @@ RSpec.describe User do
   describe 'attributes' do
     it { should define_enum_for(:role) }
     it { should have_readonly_attribute(:role) }
+
+    it { should define_enum_for(:status) }
   end
 
   describe 'associations' do
