@@ -1,13 +1,13 @@
 Warden::Strategies.add(:token_authentication) do
   def valid?
-    identifier && token
+    email && token
   end
 
   def authenticate!
-    token_set = TokenSet.find_by_identifier(identifier)
+    user = User.find_by_email(email)
 
-    if token_set && token_set.has_token?(token)
-      success!(token_set.user)
+    if user && user.valid_token?(token)
+      success!(user)
     else
       fail
     end
@@ -15,7 +15,7 @@ Warden::Strategies.add(:token_authentication) do
 
   protected
 
-  def identifier
+  def email
     request.headers['HTTP_X_USER_EMAIL']
   end
 

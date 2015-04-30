@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429092729) do
+ActiveRecord::Schema.define(version: 20150429141201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "token_sets", force: :cascade do |t|
-    t.string "identifier", null: false
-    t.text   "tokens",     null: false
+  create_table "sessions", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "token",      null: false
+    t.datetime "expires_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "token_sets", ["identifier"], name: "index_token_sets_on_identifier", using: :btree
+  add_index "sessions", ["token"], name: "index_sessions_on_token", using: :btree
+  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                          null: false

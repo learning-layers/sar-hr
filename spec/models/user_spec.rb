@@ -36,16 +36,20 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { should have_one(:token_set) }
+    it { should have_many(:sessions) }
+  end
 
-    it { should delegate_method(:tokens).to(:token_set) }
-    it { should delegate_method(:add_token).to(:token_set) }
-    it { should delegate_method(:has_token?).to(:token_set) }
-    it { should delegate_method(:remove_token).to(:token_set) }
-
-    it 'should create a token set when saved' do
+  describe '#valid_token?' do
+    before do
       subject.save!
-      expect(subject.token_set).to be_a(TokenSet)
+      subject.sessions.create!
+    end
+
+    it 'uses Devise.secure_compare' do
+      expect(Devise).to \
+          receive(:secure_compare).at_least(:once).and_call_original
+
+      subject.send(:valid_token?, 'some token')
     end
   end
 end

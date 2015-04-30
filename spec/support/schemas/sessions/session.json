@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": [
+    "token",
+    "expires_on",
+    "user"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "token":      { "type": "string" },
+    "expires_on": { "type": "datetime" },
+    "user":       { "$ref": "../users/user.json" }
+  }
+}

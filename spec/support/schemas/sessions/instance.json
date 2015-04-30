@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "session"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "session": {
+      "$ref": "session.json"
+    }
+  }
+}

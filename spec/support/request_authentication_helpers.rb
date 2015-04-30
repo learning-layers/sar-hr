@@ -29,7 +29,7 @@ module RequestAuthenticationHelpers
 
     credential_headers = {
       'HTTP_X_USER_EMAIL' => user.email,
-      'HTTP_X_USER_TOKEN' => user.tokens.first
+      'HTTP_X_USER_TOKEN' => user.sessions.create!.token
     }
 
     credential_headers.merge!(headers)

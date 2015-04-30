@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    authorize(user = User.find(params[:id]))
+    user = authorize(User.find(params[:id]))
     user.update!(user_params)
     render json: user
   end
