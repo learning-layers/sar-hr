@@ -5,7 +5,7 @@ RSpec.describe 'POST /users' do
 
   context 'with an admin' do
     before do
-      post_with_auth '/users', params, nil, user: create(:admin)
+      post_with_auth '/users', params, nil, user: create(:user, :as_admin)
     end
 
     context 'when valid data is submitted' do

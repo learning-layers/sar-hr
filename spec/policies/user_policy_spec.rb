@@ -22,7 +22,7 @@ RSpec.describe UserPolicy do
   end
 
   context 'with an admin' do
-    let(:user) { create(:admin) }
+    let(:user) { create(:user, :as_admin) }
 
     it { should permit_action(:index) }
     it { should permit_action(:show) }

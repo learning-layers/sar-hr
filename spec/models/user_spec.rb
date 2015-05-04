@@ -1,18 +1,16 @@
 RSpec.describe User do
-  subject { build(user_type) }
+  subject { build(:user) }
 
-  let(:user_type) { :user }
-
-  describe 'user factory' do
+  describe 'factory' do
     it { should be_valid }
     its(:role) { should eq('unprivileged') }
-  end
 
-  describe 'admin factory' do
-    let(:user_type) { :admin }
+    context 'as admin' do
+      subject { build(:user, :as_admin) }
 
-    it { should be_valid }
-    its(:role) { should eq('admin') }
+      it { should be_valid }
+      its(:role) { should eq('admin') }
+    end
   end
 
   describe 'validations' do

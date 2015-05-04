@@ -6,7 +6,7 @@ RSpec.describe 'DELETE /users/:id' do
 
   context 'with an admin' do
     before do
-      delete_with_auth "/users/#{id}", nil, nil, user: create(:admin)
+      delete_with_auth "/users/#{id}", nil, nil, user: create(:user, :as_admin)
     end
 
     context 'when a valid user is requested' do

@@ -7,7 +7,7 @@ FactoryGirl.define do
     password   { Faker::Internet.password }
     status     { [:available, :offline, :do_not_disturb].sample }
 
-    factory :admin do
+    trait :as_admin do
       role :admin
     end
   end

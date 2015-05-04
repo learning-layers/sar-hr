@@ -13,7 +13,7 @@ RSpec.describe 'PATCH /users/:id' do
 
   context 'with an admin' do
     before do
-      patch_with_auth "/users/#{user.id}", params, nil, user: create(:admin)
+      patch_with_auth "/users/#{user.id}", params, nil, user: create(:user, :as_admin)
     end
 
     context 'when valid data is submitted' do
