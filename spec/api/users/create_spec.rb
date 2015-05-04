@@ -5,7 +5,7 @@ RSpec.describe 'POST /users' do
 
   context 'with an admin' do
     before do
-      post_with_auth '/users', params, nil, user: create(:user, :as_admin)
+      post '/users', params: params, as: create(:user, :as_admin)
     end
 
     context 'when valid data is submitted' do
@@ -23,7 +23,7 @@ RSpec.describe 'POST /users' do
 
   context 'with a user' do
     before do
-      post_with_auth '/users', params
+      post '/users', params: params, as: create(:user)
     end
 
     its(:status) { should eq 403 }

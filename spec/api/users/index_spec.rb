@@ -3,7 +3,7 @@ RSpec.describe 'GET /users' do
 
   context 'with a user' do
     before do
-      get_with_auth '/users'
+      get '/users', as: create(:user)
     end
 
     context 'when there are users' do

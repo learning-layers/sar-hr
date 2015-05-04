@@ -13,7 +13,7 @@ RSpec.describe 'PATCH /users/:id' do
 
   context 'with an admin' do
     before do
-      patch_with_auth "/users/#{user.id}", params, nil, user: create(:user, :as_admin)
+      patch "/users/#{user.id}", params: params, as: create(:user, :as_admin)
     end
 
     context 'when valid data is submitted' do
@@ -45,7 +45,7 @@ RSpec.describe 'PATCH /users/:id' do
   context 'with a user' do
     context 'when target is not self' do
       before do
-        patch_with_auth "/users/#{user.id}", params
+        patch "/users/#{user.id}", params: params, as: create(:user)
       end
 
       its(:status) { should eq 403 }
@@ -54,7 +54,7 @@ RSpec.describe 'PATCH /users/:id' do
 
     context 'when target is self' do
       before do
-        patch_with_auth "/users/#{user.id}", params, nil, user: user
+        patch "/users/#{user.id}", params: params, as: user
       end
 
       its(:status) { should eq 200 }

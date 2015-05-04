@@ -6,7 +6,7 @@ RSpec.describe 'GET /users/:id' do
 
   context 'with a user' do
     before do
-      get_with_auth "/users/#{id}"
+      get "/users/#{id}", as: create(:user)
     end
 
     context 'when a valid user is requested' do

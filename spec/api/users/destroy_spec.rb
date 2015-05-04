@@ -6,7 +6,7 @@ RSpec.describe 'DELETE /users/:id' do
 
   context 'with an admin' do
     before do
-      delete_with_auth "/users/#{id}", nil, nil, user: create(:user, :as_admin)
+      delete "/users/#{id}", as: create(:user, :as_admin)
     end
 
     context 'when a valid user is requested' do
@@ -25,7 +25,7 @@ RSpec.describe 'DELETE /users/:id' do
   context 'with a user' do
     context 'when target is not self' do
       before do
-        delete_with_auth "/users/#{id}"
+        delete "/users/#{id}", as: create(:user)
       end
 
       its(:status) { should eq 403 }
@@ -34,7 +34,7 @@ RSpec.describe 'DELETE /users/:id' do
 
     context 'when target is self' do
       before do
-        delete_with_auth "/users/#{id}", nil, nil, user: user
+        delete "/users/#{id}", as: user
       end
 
       its(:status) { should eq 204 }

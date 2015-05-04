@@ -2,7 +2,7 @@ RSpec.describe 'DELETE /sessions' do
   subject { response }
 
   before do
-    delete_with_auth '/sessions'
+    delete '/sessions', as: create(:user)
   end
 
   its(:status) { should eq 204 }

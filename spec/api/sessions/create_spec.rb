@@ -6,7 +6,7 @@ RSpec.describe 'POST /sessions' do
   let(:params)   { { user: { email: user.email, password: password } } }
 
   before do
-    post '/sessions', params
+    post '/sessions', params: params
   end
 
   context 'using correct credentials' do
