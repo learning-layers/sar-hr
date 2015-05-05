@@ -1,12 +1,12 @@
 RSpec.describe User do
-  subject { build(:user) }
+  subject(:user) { build(:user) }
 
   describe 'factory' do
     it { should be_valid }
     its(:role) { should eq('unprivileged') }
 
     context 'as admin' do
-      subject { build(:user, :as_admin) }
+      subject(:user) { build(:user, :as_admin) }
 
       it { should be_valid }
       its(:role) { should eq('admin') }
@@ -37,17 +37,16 @@ RSpec.describe User do
     it { should have_many(:sessions) }
   end
 
+  # This should be moved to a separate spec.
   describe '#valid_token?' do
     before do
-      subject.save!
-      subject.sessions.create!
+      user.save!
+      user.sessions.create!
     end
 
     it 'uses Devise.secure_compare' do
-      expect(Devise).to \
-          receive(:secure_compare).at_least(:once).and_call_original
-
-      subject.send(:valid_token?, 'some token')
+      expect(Devise).to receive(:secure_compare).and_call_original
+      user.valid_token?('some token')
     end
   end
 end
