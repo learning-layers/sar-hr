@@ -3,9 +3,12 @@ class SessionsController < ApplicationController
   skip_after_action  :verify_authorized,  only: [:create, :destroy]
 
   def create
-    user = User.find_by_email(params[:user][:email])
+    email = user_params[:email]
+    password = user_params[:password]
 
-    unless user && user.valid_password?(params[:user][:password])
+    user = User.find_by_email(email)
+
+    unless user && user.valid_password?(password)
       throw :warden, scope: :user
     end
 
@@ -19,5 +22,11 @@ class SessionsController < ApplicationController
     authorize(session).destroy!
 
     head :no_content
+  end
+
+private
+
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
 end

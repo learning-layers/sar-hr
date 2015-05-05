@@ -27,4 +27,11 @@ RSpec.describe 'POST /sessions' do
     its(:status) { should eq 401 }
     its(:body)   { should match_schema('error') }
   end
+
+  context 'using an invalid body' do
+    let(:params) { {} }
+
+    its(:status) { should eq 422 }
+    its(:body)   { should match_schema('error') }
+  end
 end
