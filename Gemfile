@@ -23,6 +23,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'pry-rails'
   gem 'spring'
 end
 
