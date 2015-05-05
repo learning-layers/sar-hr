@@ -1,18 +1,18 @@
-RSpec.describe 'GET /users' do
+RSpec.describe 'GET /skills' do
   subject { response }
 
   context 'with a user' do
     before do
-      get '/users', as: create(:user)
+      get '/skills', as: create(:user)
     end
 
     its(:status) { should eq 200 }
-    its(:body)   { should match_schema('users/collection') }
+    its(:body)   { should match_schema('skills/collection') }
   end
 
   context 'with a visitor' do
     before do
-      get '/users'
+      get '/skills'
     end
 
     its(:status) { should eq 401 }

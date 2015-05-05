@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   include TokenAuthenticatable
   devise :database_authenticatable, :validatable
 
+  has_and_belongs_to_many :skills
+
   enum role:   [:unprivileged, :admin]
   enum status: [:offline, :available, :do_not_disturb]
 

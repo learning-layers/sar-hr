@@ -1,5 +1,5 @@
 class UserSerializer < UserStubSerializer
-  attributes :role
+  attributes :role, :skill_ids
 
   def include_role?
     current_user && current_user.admin?

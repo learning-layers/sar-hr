@@ -32,6 +32,7 @@ group :test do
   gem 'faker'
   gem 'json-schema'
   gem 'json_spec'
+  gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'shoulda-matchers'
 end

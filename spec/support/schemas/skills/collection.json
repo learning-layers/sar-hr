@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "required": [
+    "skills"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "skills": {
+      "type": "array",
+      "items": { "$ref": "skill_stub.json" }
+    }
+  }
+}

@@ -173,6 +173,8 @@ GEM
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
       rspec-mocks (~> 3.2.0)
+    rspec-collection_matchers (1.1.2)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.1)
@@ -239,6 +241,7 @@ DEPENDENCIES
   rails (= 4.2.1)
   rails-api
   rollbar (~> 1.5.0)
+  rspec-collection_matchers
   rspec-its
   rspec-rails (~> 3.0)
   shoulda-matchers

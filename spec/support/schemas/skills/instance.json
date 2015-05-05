@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "skill"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "skill": {
+      "$ref": "skill.json"
+    }
+  }
+}

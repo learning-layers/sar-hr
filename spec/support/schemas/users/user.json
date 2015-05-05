@@ -7,17 +7,21 @@
     "first_name",
     "last_name",
     "title",
-    "status"
+    "status",
+    "skill_count",
+    "skill_ids"
   ],
   "additionalProperties": false,
   "properties": {
-    "email": { "type": "email" },
-    "id":    { "type": "integer" },
-    "name":       { "type": "string" },
-    "first_name": { "type": "string" },
-    "last_name":  { "type": "string" },
-    "title":      { "type": "string" },
-    "role":       { "enum": [ "unprivileged", "admin" ] },
-    "status":     { "enum": [ "offline", "available", "do_not_disturb" ] }
+    "email":       { "type": "email" },
+    "id":          { "type": "integer" },
+    "name":        { "type": "string" },
+    "first_name":  { "type": "string" },
+    "last_name":   { "type": "string" },
+    "title":       { "type": "string" },
+    "role":        { "enum": [ "unprivileged", "admin" ] },
+    "status":      { "enum": [ "offline", "available", "do_not_disturb" ] },
+    "skill_count": { "type": "integer" },
+    "skill_ids":   { "type": "array", "items": { "type": "integer" } }
   }
 }
