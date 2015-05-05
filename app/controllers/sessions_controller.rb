@@ -3,8 +3,8 @@ class SessionsController < ApplicationController
   skip_after_action  :verify_authorized,  only: [:create, :destroy]
 
   def create
-    email = user_params[:email]
-    password = user_params[:password]
+    email = user_params.fetch(:email)
+    password = user_params.fetch(:password)
 
     user = User.find_by_email(email)
 
