@@ -1,4 +1,6 @@
 class Session < ActiveRecord::Base
+  TTL = 1.hour
+
   after_initialize :default_values
 
   belongs_to :user
@@ -13,11 +15,15 @@ class Session < ActiveRecord::Base
     expires_on > Time.now
   end
 
+  def keep_alive
+    alive? && update!(expires_on: TTL.from_now)
+  end
+
 protected
 
   def default_values
     self.token      ||= generate_token
-    self.expires_on ||= 1.hour.from_now
+    self.expires_on ||= TTL.from_now
   end
 
   def generate_token
