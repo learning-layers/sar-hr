@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from Pundit::NotAuthorizedError, with: :render_forbidden
 
-  protected
+protected
 
   # Override Pundit#authorize so we can do neat one-liners like this:
   #
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
     record if super(record, query)
   end
 
-  private
+private
 
   # TODO: Use serialisers
 
