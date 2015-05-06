@@ -3,14 +3,12 @@
   "required": [
     "id",
     "name",
-    "user_count",
     "user_ids"
   ],
   "additionalProperties": false,
   "properties": {
-    "id":         { "type": "integer" },
-    "name":       { "type": "string" },
-    "user_count": { "type": "integer" },
-    "user_ids":   { "type": "array", "items": { "type": "integer" } }
+    "id":       { "type": "integer" },
+    "name":     { "type": "string" },
+    "user_ids": { "type": "array", "items": { "type": "integer" } }
   }
 }
