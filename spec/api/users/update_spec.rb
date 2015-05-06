@@ -26,6 +26,25 @@ RSpec.describe 'PATCH /users/:id' do
 
         expect(fetched_value).to eq(changed_value)
       end
+
+      context 'when changing skills' do
+        let(:skill) { create(:skill) }
+
+        let(:params) {
+          {
+            :user => {
+              :skill_ids => [ skill.id ]
+            }
+          }
+        }
+
+        it 'updates skills' do
+          fetched_value = parse_json(body, 'user/skill_ids')
+          changed_value = params[:user][:skill_ids]
+
+          expect(fetched_value).to eq(changed_value)
+        end
+      end
     end
 
     context 'when invalid data is submitted' do
@@ -65,6 +84,25 @@ RSpec.describe 'PATCH /users/:id' do
         changed_value = params[:user][:email]
 
         expect(fetched_value).to eq(changed_value)
+      end
+
+      context 'when changing skills' do
+        let(:skill) { create(:skill) }
+
+        let(:params) {
+          {
+            :user => {
+              :skill_ids => [ skill.id ]
+            }
+          }
+        }
+
+        it 'updates skills' do
+          fetched_value = parse_json(body, 'user/skill_ids')
+          changed_value = params[:user][:skill_ids]
+
+          expect(fetched_value).to eq(changed_value)
+        end
       end
     end
   end
