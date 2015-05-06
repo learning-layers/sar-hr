@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [:sessions, :passwords, :registrations]
+  scope format: false do
+    devise_for :users, skip: [:sessions, :passwords, :registrations]
 
-  post   '/sessions', to: 'sessions#create'
-  delete '/sessions', to: 'sessions#destroy'
+    post   '/sessions', to: 'sessions#create'
+    delete '/sessions', to: 'sessions#destroy'
 
-  scope only: [:index, :show, :create, :update, :destroy] do
-    resources :users
-    resources :skills
+    scope only: [:index, :show, :create, :update, :destroy] do
+      resources :users
+      resources :skills
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
