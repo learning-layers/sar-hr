@@ -44,9 +44,6 @@ echo 'Installing PostgreSQL...'
 
 apt-get -qy install postgresql postgresql-contrib libpq-dev &>> ${LOG}
 
-sudo -u postgres createdb development
-sudo -u postgres createdb test
-
 # Allow login from anywhere
 sed -Ei 's/local\s+all\s+postgres\s+peer/local all postgres trust/' \
   ${POSTGRES_CONFIG}
@@ -84,6 +81,14 @@ echo 'Installing gems...'
 
 sudo -u vagrant -H bash \
   -c '~/.rbenv/shims/bundle install --gemfile="/vagrant/Gemfile"' &>> ${LOG}
+
+echo 'Setting up database...'
+
+sudo -u postgres createdb development  &>> ${LOG}
+sudo -u postgres createdb test  &>> ${LOG}
+
+sudo -u vagrant -H bash \
+  -c '~/.rbenv/shims/rake db:setup --rakefile="/vagrant/Rakefile"' &>> ${LOG}
 
 echo 'Starting Rack...'
 
