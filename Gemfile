@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
 # Read the ruby version for Heroku
-ruby File.open('.ruby-version', 'r') { |f| f.read.strip }
+File.open(File.expand_path('../.ruby-version', __FILE__), 'r') do |f|
+  ruby f.read.strip
+end
 
 gem 'active_model_serializers', '0.8.3'
 gem 'devise'
