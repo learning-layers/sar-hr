@@ -90,13 +90,13 @@ sudo -u postgres createdb test  &>> ${LOG}
 sudo -u vagrant -H bash \
   -c '~/.rbenv/shims/rake db:setup --rakefile="/vagrant/Rakefile"' &>> ${LOG}
 
-echo 'Starting Rack...'
+echo 'Starting Rails...'
 
 # Copy the Upstart job into place and refresh Upstart
-cp /vagrant/provisioning/config/rack.conf /etc/init/rack.conf &>> ${LOG}
-chmod +x /etc/init/rack.conf &>> ${LOG}
+cp /vagrant/provisioning/config/rails.conf /etc/init/rails.conf &>> ${LOG}
+chmod +x /etc/init/rails.conf &>> ${LOG}
 initctl reload-configuration &>> ${LOG}
 
-service rack start &>> ${LOG}
+service rails start &>> ${LOG}
 
 echo 'Done!'
