@@ -39,3 +39,8 @@ group :test do
   gem 'rspec-its'
   gem 'shoulda-matchers'
 end
+
+group :production do
+  # Adds Heroku-specific configuration for production environments.
+  gem 'rails_12factor'
+end
