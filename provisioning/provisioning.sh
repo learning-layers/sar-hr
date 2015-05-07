@@ -23,7 +23,7 @@ RUBY_VERSION=$(cat /vagrant/.ruby-version)
 # A quiet unattended installation
 export DEBIAN_FRONTEND=noninteractive
 
-echo 'Now provisioning.'
+echo 'Now provisioning! Why not get a coffee?'
 echo "Output and errors are logged into ${LOG}."
 
 echo 'Configuring the system...'
@@ -40,7 +40,7 @@ echo 'Installing utilities...'
 
 apt-get -qy install git-core &>> ${LOG}
 
-echo 'Installing PostgreSQL...'
+echo 'Installing Postgres...'
 
 apt-get -qy install postgresql postgresql-contrib libpq-dev &>> ${LOG}
 
