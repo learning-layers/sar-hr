@@ -26,6 +26,11 @@ export DEBIAN_FRONTEND=noninteractive
 echo 'Now provisioning.'
 echo "Output and errors are logged into ${LOG}."
 
+echo 'Configuring the system...'
+
+# Set a proper locale
+echo 'LC_ALL="en_US.UTF-8"' >> /etc/environment
+
 echo 'Upgrading the system...'
 
 apt-get -qy update &>> ${LOG}
