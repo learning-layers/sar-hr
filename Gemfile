@@ -14,6 +14,7 @@ gem 'rack-cors'
 gem 'rails', '4.2.1'
 gem 'rails-api'
 gem 'rollbar', '~> 1.5.0'
+gem 'wisper'
 
 group :development, :test do
   gem 'pry'

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       resources :users
       resources :skills
     end
+
+    get '/notifications/:channel', to: 'notifications#show'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -222,6 +222,7 @@ GEM
       thread_safe (~> 0.1)
     warden (1.2.3)
       rack (>= 1.0)
+    wisper (1.6.0)
 
 PLATFORMS
   ruby
@@ -254,3 +255,4 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   shoulda-matchers
   spring
+  wisper
