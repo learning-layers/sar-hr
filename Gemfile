@@ -8,11 +8,11 @@ end
 gem 'active_model_serializers', '0.8.3'
 gem 'devise'
 gem 'pg'
+gem 'puma'
 gem 'pundit'
 gem 'rails', '4.2.1'
 gem 'rails-api'
 gem 'rollbar', '~> 1.5.0'
-gem 'thin'
 
 group :development, :test do
   gem 'pry'

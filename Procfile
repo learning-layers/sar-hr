@@ -1,1 +1,1 @@
-web: bundle exec rails server thin -p $PORT --env $RACK_ENV
+web: bundle exec rails server puma -p $PORT --env $RACK_ENV
