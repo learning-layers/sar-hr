@@ -6,6 +6,6 @@ class DeviseJSONFailure < Devise::FailureApp
   end
 
   def http_auth_body
-    return { :error => { :code => :unauthorized } }.to_json
+    { :error => { :code => :unauthorized } }.to_json
   end
 end
