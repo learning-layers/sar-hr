@@ -22,7 +22,7 @@ class NotificationsController < ApplicationController
     # Write notifications until the client disconnects
     Notifications::Queue.subscribe(channel) do |payload|
       begin
-        responder.write(payload)
+        responder.write(payload) unless payload.nil?
       rescue ClientDisconnected, IOError
         true
       end

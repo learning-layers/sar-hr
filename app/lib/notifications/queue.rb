@@ -25,12 +25,15 @@ private
   # Waits until a notification on the given channel is received and calls the
   # block with the payload.
   #
+  # Times out after 10 seconds. If no notification has been received, payload
+  # will be nil.
+  #
   # Loops until the block returns truthy.
   def listen_to_channel(connection, channel, &block)
     connection.execute("LISTEN #{channel}")
 
     loop do
-      connection.raw_connection.wait_for_notify do |event, pid, payload|
+      connection.raw_connection.wait_for_notify(10) do |event, pid, payload|
         return if yield payload
       end
     end
