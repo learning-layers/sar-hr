@@ -33,6 +33,18 @@ class NotificationsController < ApplicationController
 
 protected
 
+  # We're running on a separate thread, so Warden can't catch the symbol when
+  # authentication fails. We need to do that manually and fail.
+  def authenticate_user!
+    catch(:warden) do
+      super
+    end
+
+    unless user_signed_in?
+      render json: { :error => { :code => :unauthorized } }, status: 401
+    end
+  end
+
   # Sets the content type header for an event stream.
   def set_content_type
     response.headers['Content-Type'] = 'text/event-stream'

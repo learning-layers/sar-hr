@@ -26,6 +26,6 @@ private
 
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :last_name,
-                                 :title, :status, :skill_ids => [])
+                                 :title, :status, :peer_id, :skill_ids => [])
   end
 end

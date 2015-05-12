@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 protected
 
   def broadcast_changes
-    broadcast(:user_status_changed, self) if status_changed?
+    broadcast(:user_status_changed,  self) if status_changed?
+    broadcast(:user_peer_id_changed, self) if peer_id_changed?
   end
 end

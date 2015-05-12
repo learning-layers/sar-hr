@@ -5,6 +5,10 @@ module Notifications
       notify('global', UserStatusNotificationSerializer.new(user).to_json)
     end
 
+    def user_peer_id_changed(user)
+      notify('global', UserPeerIdNotificationSerializer.new(user).to_json)
+    end
+
   private
 
     def notify(channel, payload)

@@ -8,6 +8,7 @@
     "last_name",
     "title",
     "status",
+    "peer_id",
     "skill_ids"
   ],
   "additionalProperties": false,
@@ -20,6 +21,7 @@
     "title":      { "type": "string" },
     "role":       { "enum": [ "unprivileged", "admin" ] },
     "status":     { "enum": [ "offline", "available", "do_not_disturb" ] },
+    "peer_id":    { "type": [ "string", "null" ] },
     "skill_ids":  { "type": "array", "items": { "type": "integer" } }
   }
 }
