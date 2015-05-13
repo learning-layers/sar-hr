@@ -243,7 +243,7 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
   config.warden do |manager|
-    manager.failure_app = DeviseJSONFailure
+    manager.failure_app = FailureController
     manager.default_strategies(scope: :user).unshift(:token_authentication)
   end
 
