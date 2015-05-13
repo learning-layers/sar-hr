@@ -16,22 +16,16 @@ RSpec.describe 'POST /sessions' do
 
   context 'using the wrong password' do
     let(:params) { { user: { email: user.email, password: 'nope' } } }
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    it_behaves_like 'unauthorized'
   end
 
   context 'using the wrong email' do
     let(:params) { { user: { email: 'nope', password: password } } }
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    it_behaves_like 'unauthorized'
   end
 
   context 'using an invalid body' do
     let(:params) { {} }
-
-    its(:status) { should eq 422 }
-    its(:body)   { should match_schema('error') }
+    it_behaves_like 'unprocessable entity'
   end
 end

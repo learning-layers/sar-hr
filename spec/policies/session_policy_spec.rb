@@ -10,7 +10,6 @@ RSpec.describe SessionPolicy do
 
   context 'when modifying of another user' do
     let(:session) { create(:user).sessions.create! }
-
     it { should_not permit_action(:destroy) }
   end
 end

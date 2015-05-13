@@ -2,6 +2,7 @@ RSpec.describe 'PATCH /users/:id' do
   subject { response }
 
   let(:user) { create(:user) }
+  let(:id)   { create(:user).id }
 
   let(:params) {
     {
@@ -11,40 +12,46 @@ RSpec.describe 'PATCH /users/:id' do
     }
   }
 
-  context 'with an admin' do
-    before do
-      patch "/users/#{user.id}", params: params, as: create(:user, :as_admin)
+  before do
+    patch "/users/#{id}", params: params, as: user
+  end
+
+  shared_examples 'successful request' do
+    its(:status) { should eq 200 }
+    its(:body)   { should match_schema('users/instance') }
+
+    it 'has updated attributes' do
+      fetched_value = parse_json(body, 'user/email')
+      changed_value = params[:user][:email]
+
+      expect(fetched_value).to eq(changed_value)
     end
 
-    context 'when valid data is submitted' do
-      its(:status) { should eq 200 }
-      its(:body)   { should match_schema('users/instance') }
+    context 'when changing skills' do
+      let(:skill) { create(:skill) }
 
-      it 'has updated attributes' do
-        fetched_value = parse_json(body, 'user/email')
-        changed_value = params[:user][:email]
+      let(:params) {
+        {
+          :user => {
+            :skill_ids => [ skill.id ]
+          }
+        }
+      }
+
+      it 'updates skills' do
+        fetched_value = parse_json(body, 'user/skill_ids')
+        changed_value = params[:user][:skill_ids]
 
         expect(fetched_value).to eq(changed_value)
       end
+    end
+  end
 
-      context 'when changing skills' do
-        let(:skill) { create(:skill) }
+  context 'with an admin' do
+    let(:user) { create(:user, :as_admin) }
 
-        let(:params) {
-          {
-            :user => {
-              :skill_ids => [ skill.id ]
-            }
-          }
-        }
-
-        it 'updates skills' do
-          fetched_value = parse_json(body, 'user/skill_ids')
-          changed_value = params[:user][:skill_ids]
-
-          expect(fetched_value).to eq(changed_value)
-        end
-      end
+    context 'when valid data is submitted' do
+      it_behaves_like 'successful request'
     end
 
     context 'when invalid data is submitted' do
@@ -56,63 +63,23 @@ RSpec.describe 'PATCH /users/:id' do
         }
       }
 
-      its(:status) { should eq 422 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'unprocessable entity'
     end
   end
 
   context 'with a user' do
     context 'when target is not self' do
-      before do
-        patch "/users/#{user.id}", params: params, as: create(:user)
-      end
-
-      its(:status) { should eq 403 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'forbidden'
     end
 
     context 'when target is self' do
-      before do
-        patch "/users/#{user.id}", params: params, as: user
-      end
-
-      its(:status) { should eq 200 }
-      its(:body)   { should match_schema('users/instance') }
-
-      it 'has updated attributes' do
-        fetched_value = parse_json(body, 'user/email')
-        changed_value = params[:user][:email]
-
-        expect(fetched_value).to eq(changed_value)
-      end
-
-      context 'when changing skills' do
-        let(:skill) { create(:skill) }
-
-        let(:params) {
-          {
-            :user => {
-              :skill_ids => [ skill.id ]
-            }
-          }
-        }
-
-        it 'updates skills' do
-          fetched_value = parse_json(body, 'user/skill_ids')
-          changed_value = params[:user][:skill_ids]
-
-          expect(fetched_value).to eq(changed_value)
-        end
-      end
+      let(:id) { user.id }
+      it_behaves_like 'successful request'
     end
   end
 
   context 'with a visitor' do
-    before do
-      patch "/users/#{user.id}", params
-    end
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    let(:user) { nil }
+    it_behaves_like 'unauthorized'
   end
 end

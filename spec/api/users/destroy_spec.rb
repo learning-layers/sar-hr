@@ -2,52 +2,38 @@ RSpec.describe 'DELETE /users/:id' do
   subject { response }
 
   let(:user) { create(:user) }
-  let(:id)   { user.id }
+  let(:id)   { create(:user).id }
+
+  before do
+    delete "/users/#{id}", as: user
+  end
 
   context 'with an admin' do
-    before do
-      delete "/users/#{id}", as: create(:user, :as_admin)
-    end
+    let(:user) { create(:user, :as_admin) }
 
     context 'when a valid user is requested' do
-      its(:status) { should eq 204 }
-      its(:body)   { should be_empty }
+      it_behaves_like 'no content'
     end
 
     context 'when an invalid user is requested' do
       let(:id) { '123123' }
-
-      its(:status) { should eq 404 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'not found'
     end
   end
 
   context 'with a user' do
     context 'when target is not self' do
-      before do
-        delete "/users/#{id}", as: create(:user)
-      end
-
-      its(:status) { should eq 403 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'forbidden'
     end
 
     context 'when target is self' do
-      before do
-        delete "/users/#{id}", as: user
-      end
-
-      its(:status) { should eq 204 }
-      its(:body)   { should be_empty }
+      let(:id) { user.id }
+      it_behaves_like 'no content'
     end
   end
 
   context 'with a visitor' do
-    before do
-      delete "/users/#{id}"
-    end
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    let(:user) { nil }
+    it_behaves_like 'unauthorized'
   end
 end

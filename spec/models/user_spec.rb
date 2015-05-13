@@ -13,6 +13,11 @@ RSpec.describe User do
     end
   end
 
+  describe 'concerns' do
+    before { user.save! }
+    it_behaves_like TokenAuthenticatable
+  end
+
   describe 'validations' do
     it { should validate_presence_of(:email) }
     it { should validate_uniqueness_of(:email).case_insensitive }
@@ -35,18 +40,5 @@ RSpec.describe User do
   describe 'associations' do
     it { should have_many(:sessions) }
     it { should have_and_belong_to_many(:skills) }
-  end
-
-  # This should be moved to a separate spec.
-  describe '#valid_token?' do
-    before do
-      user.save!
-      user.sessions.create!
-    end
-
-    it 'uses Devise.secure_compare' do
-      expect(Devise).to receive(:secure_compare).and_call_original
-      user.valid_token?('some token')
-    end
   end
 end

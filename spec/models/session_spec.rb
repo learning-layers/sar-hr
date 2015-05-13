@@ -23,37 +23,29 @@ RSpec.describe Session do
     it { should belong_to(:user) }
   end
 
-  describe '#alive?' do
-    context 'with a valid token' do
+  context 'with a valid token' do
+    describe '#alive?' do
       its(:alive?) { should eq(true) }
     end
 
-    context 'with an expired token' do
-      before do
-        session.update(expires_on: 1.hour.ago)
-      end
-
-      its(:alive?) { should eq(false) }
-    end
-  end
-
-  describe '#keep_alive' do
-    context 'with a valid token' do
-      before do
-        session.update(expires_on: 5.minutes.from_now)
-      end
-
+    describe '#keep_alive' do
       it 'keeps the session alive' do
         expect(session.keep_alive).to eq(true)
         expect(session.expires_on).to be > 5.minutes.from_now
       end
     end
+  end
 
-    context 'with an expired token' do
-      before do
-        session.update(expires_on: 1.hour.ago)
-      end
+  context 'with an expired token' do
+    before do
+      session.update!(expires_on: 1.hour.ago)
+    end
 
+    describe '#alive?' do
+      its(:alive?) { should eq(false) }
+    end
+
+    describe '#keep_alive' do
       it 'does not keep the session alive' do
         expect(session.keep_alive).to eq(false)
         expect(session.expires_on).to be < Time.now

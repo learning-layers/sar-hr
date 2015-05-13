@@ -1,12 +1,15 @@
 RSpec.describe 'POST /users' do
   subject { response }
 
+  let(:user)   { create(:user) }
   let(:params) { { :user => attributes_for(:user) } }
 
+  before do
+    post '/users', params: params, as: user
+  end
+
   context 'with an admin' do
-    before do
-      post '/users', params: params, as: create(:user, :as_admin)
-    end
+    let(:user) { create(:user, :as_admin) }
 
     context 'when valid data is submitted' do
       its(:status) { should eq 201 }
@@ -15,27 +18,16 @@ RSpec.describe 'POST /users' do
 
     context 'when invalid data is submitted' do
       let(:params) { {} }
-
-      its(:status) { should eq 422 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'unprocessable entity'
     end
   end
 
   context 'with a user' do
-    before do
-      post '/users', params: params, as: create(:user)
-    end
-
-    its(:status) { should eq 403 }
-    its(:body)   { should match_schema('error') }
+    it_behaves_like 'forbidden'
   end
 
   context 'with a visitor' do
-    before do
-      post '/users', params
-    end
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    let(:user) { nil }
+    it_behaves_like 'unauthorized'
   end
 end

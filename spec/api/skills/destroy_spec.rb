@@ -1,42 +1,33 @@
 RSpec.describe 'DELETE /skills/:id' do
   subject { response }
 
+  let(:user)  { create(:user) }
   let(:skill) { create(:skill) }
   let(:id)    { skill.id }
 
+  before do
+    delete "/skills/#{id}", as: user
+  end
+
   context 'with an admin' do
-    before do
-      delete "/skills/#{id}", as: create(:user, :as_admin)
-    end
+    let(:user) { create(:user, :as_admin) }
 
     context 'when a valid skill is requested' do
-      its(:status) { should eq 204 }
-      its(:body)   { should be_empty }
+      it_behaves_like 'no content'
     end
 
     context 'when an invalid skill is requested' do
       let(:id) { '123123' }
-
-      its(:status) { should eq 404 }
-      its(:body)   { should match_schema('error') }
+      it_behaves_like 'not found'
     end
   end
 
   context 'with a user' do
-    before do
-      delete "/skills/#{id}", as: create(:user)
-    end
-
-    its(:status) { should eq 403 }
-    its(:body)   { should match_schema('error') }
+    it_behaves_like 'forbidden'
   end
 
   context 'with a visitor' do
-    before do
-      delete "/skills/#{id}"
-    end
-
-    its(:status) { should eq 401 }
-    its(:body)   { should match_schema('error') }
+    let(:user) { nil }
+    it_behaves_like 'unauthorized'
   end
 end

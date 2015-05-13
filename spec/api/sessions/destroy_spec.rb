@@ -5,6 +5,5 @@ RSpec.describe 'DELETE /sessions' do
     delete '/sessions', as: create(:user)
   end
 
-  its(:status) { should eq 204 }
-  its(:body)   { should be_empty }
+  it_behaves_like 'no content'
 end
