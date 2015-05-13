@@ -51,7 +51,7 @@ RSpec.describe 'PATCH /users/:id' do
     let(:user) { create(:user, :as_admin) }
 
     context 'when valid data is submitted' do
-      it_behaves_like 'successful request'
+      include_examples 'successful request'
     end
 
     context 'when invalid data is submitted' do
@@ -74,7 +74,7 @@ RSpec.describe 'PATCH /users/:id' do
 
     context 'when target is self' do
       let(:id) { user.id }
-      it_behaves_like 'successful request'
+      include_examples 'successful request'
     end
   end
 

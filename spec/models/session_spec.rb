@@ -24,9 +24,7 @@ RSpec.describe Session do
   end
 
   context 'with a valid token' do
-    describe '#alive?' do
-      its(:alive?) { should eq(true) }
-    end
+    its(:alive?) { should eq(true) }
 
     describe '#keep_alive' do
       it 'keeps the session alive' do
@@ -41,9 +39,7 @@ RSpec.describe Session do
       session.update!(expires_on: 1.hour.ago)
     end
 
-    describe '#alive?' do
-      its(:alive?) { should eq(false) }
-    end
+    its(:alive?) { should eq(false) }
 
     describe '#keep_alive' do
       it 'does not keep the session alive' do
