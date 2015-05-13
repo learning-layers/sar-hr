@@ -3,8 +3,10 @@
 # model later.
 class Channel < Struct.new(:name)
   def to_str
-    name
+    name.to_s
   end
+
+  alias to_s to_str
 
   def to_sym
     name.to_sym
