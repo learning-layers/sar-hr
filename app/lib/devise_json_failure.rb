@@ -1,11 +1,13 @@
 # Overrides Devise's default failure app to produce custom JSON errors.
-class DeviseJSONFailure < Devise::FailureApp
-  def http_auth
-    super
-    self.content_type = 'application/json'
+class DeviseJSONFailure < ActionController::API
+  include Fallible
+
+  def self.call(env)
+    @respond ||= action(:respond)
+    @respond.call(env)
   end
 
-  def http_auth_body
-    { :error => { :code => :unauthorized } }.to_json
+  def respond
+    render_unauthorized
   end
 end

@@ -3,6 +3,10 @@
 # ActionController::Live has a number of drawbacks, the greatest of which is
 # the need to keep a database connection around for each request.
 #
+# Another interesting point is that Warden's catch(:warden) block doesn't work
+# when we're running on a different thread. We need to catch it ourselves to
+# prevent an error and then check if the user is logged in.
+#
 # Rails 5 and ActionCable should provide a more integrated way of handling
 # notifications via websockets in the future. Until then, this is okay.
 class NotificationsController < ApplicationController
@@ -40,9 +44,7 @@ protected
       super
     end
 
-    unless user_signed_in?
-      render json: { :error => { :code => :unauthorized } }, status: 401
-    end
+    render_unauthorized unless user_signed_in?
   end
 
   # Sets the content type header for an event stream.

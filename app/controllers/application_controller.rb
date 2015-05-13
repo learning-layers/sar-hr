@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include Pundit
+  include Fallible
 
   before_action :authenticate_user!
   after_action  :verify_authorized
@@ -17,53 +18,5 @@ protected
   #
   def authorize(record, query = nil)
     record if super(record, query)
-  end
-
-private
-
-  # TODO: Use serialisers
-
-  def render_missing(error)
-    body = {
-      :error => {
-        :code => :missing_parameter,
-        :parameters => {
-          error.param => 'required'
-        }
-      }
-    }
-
-    render json: body, status: 422
-  end
-
-  def render_invalid(error)
-    body = {
-      :error => {
-        :code => :invalid_parameters,
-        :parameters => error.record.errors
-      }
-    }
-
-    render json: body, status: 422
-  end
-
-  def render_not_found(error)
-    body = {
-      :error => {
-        :code => :not_found
-      }
-    }
-
-    render json: body, status: 404
-  end
-
-  def render_forbidden(error)
-    body = {
-      :error => {
-        :code => :forbidden
-      }
-    }
-
-    render json: body, status: 403
   end
 end
