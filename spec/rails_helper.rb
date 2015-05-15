@@ -1,5 +1,14 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
+
+require 'simplecov'
+
+# Special directives for CI runners
+if ENV['CI']
+  # Provide coverage reports as artifacts on CircleCI
+  SimpleCov.root ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
+end
+
+SimpleCov.start 'rails'
 
 require File.expand_path('../../config/environment', __FILE__)
 

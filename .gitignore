@@ -15,10 +15,13 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*
+/log
 !/log/.keep
 /tmp
 
 # Ignore Vagrant stuff
-/.vagrant/
+/.vagrant
 /provisioning/*.log
+
+# Ignore test coverage reports
+/coverage

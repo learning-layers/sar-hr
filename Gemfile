@@ -40,6 +40,7 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :production do
