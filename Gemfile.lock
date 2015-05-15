@@ -52,6 +52,10 @@ GEM
       columnize (= 0.9.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    codecov (0.0.6)
+      json
+      simplecov
+      url
     coderay (1.1.0)
     columnize (0.9.0)
     database_cleaner (1.4.1)
@@ -226,6 +230,7 @@ GEM
       hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    url (0.3.2)
     warden (1.2.3)
       rack (>= 1.0)
     wisper (1.6.0)
@@ -237,6 +242,7 @@ DEPENDENCIES
   active_model_serializers (= 0.8.3)
   better_errors
   binding_of_caller
+  codecov
   database_cleaner
   devise
   factory_girl_rails (~> 4.0)

@@ -4,6 +4,14 @@ require 'simplecov'
 
 # Special directives for CI runners
 if ENV['CI']
+  # Enable Codecov reporting
+  require 'codecov'
+
+  SimpleCov.formatters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::Codecov
+  ]
+
   # Provide coverage reports as artifacts on CircleCI
   SimpleCov.root ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
 end
