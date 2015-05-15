@@ -13,7 +13,7 @@ if ENV['CI']
   ]
 
   # Provide coverage reports as artifacts on CircleCI
-  SimpleCov.root ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
+  SimpleCov.coverage_dir ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
 end
 
 SimpleCov.start 'rails'
