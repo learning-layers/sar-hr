@@ -1,6 +1,9 @@
 SAR-HR
 ======
 
+[![Build status][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+
 **Backend service for the Social Augmented Reality HR component.**
 
 ### Setting up for development ###
@@ -19,8 +22,8 @@ virtual Linux guest on your development machine.
 2. Clone the repository and `cd` into it:
 
   ```sh-session
-  $ git clone https://github.com/lnikkila/heureka.git
-  $ cd heureka
+  $ git clone https://github.com/learning-layers/sar-hr.git
+  $ cd sar-hr
   ```
 
 3. Start the Vagrant box using `vagrant up`. This first run will take a few
@@ -66,3 +69,9 @@ $ rake
 
 Coverage reports are generated into `./coverage`. They’re static HTML, so you
 can just open them in your browser.
+
+[build-badge]: https://img.shields.io/circleci/project/learning-layers/sar-hr.svg
+[build]: https://circleci.com/gh/learning-layers/sar-hr
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/learning-layers/sar-hr.svg
+[coverage]: http://codecov.io/github/learning-layers/sar-hr
