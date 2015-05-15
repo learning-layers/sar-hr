@@ -1,12 +1,9 @@
-Heureka
-=======
+SAR-HR
+======
 
 **Backend service for the Social Augmented Reality HR component.**
 
-Still being worked on. Lots of small parts and sharp corners.
-
-Setting up for development
---------------------------
+### Setting up for development ###
 
 Vagrant makes this easy peasy lemon squeezy by creating and configuring a
 virtual Linux guest on your development machine.
@@ -30,3 +27,42 @@ virtual Linux guest on your development machine.
    minutes, so grab a coffee in the meantime!
 
 4. When done, point your API client to <http://10.11.12.13:9292>. Simples!
+
+### Running commands ###
+
+To run commands within the development environment, use `vagrant ssh`:
+
+```sh-session
+$ vagrant ssh   # SSH into the virtual machine
+$ cd /vagrant   # Change directory to the project root
+$ rake stats    # Do whatever (e.g. show stats about the project)
+```
+
+The following commands should be run in the development environment.
+
+#### Serving for development ####
+
+The Vagrant box starts automatically serving the app at
+<http://10.11.12.13:9292> when started. It’s an Upstart service:
+
+```sh-session
+$ sudo service rails status
+```
+
+If you want to do it manually, remember to allow connections from the host. The
+easiest way is to bind to `0.0.0.0`.
+
+```sh-session
+$ rails s -b 0.0.0.0
+```
+
+#### Running tests ####
+
+`rake` is configured to use `rspec` behind the scenes.
+
+```sh-session
+$ rake
+```
+
+Coverage reports are generated into `./coverage`. They’re static HTML, so you
+can just open them in your browser.
