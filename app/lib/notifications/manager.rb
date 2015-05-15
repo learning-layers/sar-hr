@@ -9,7 +9,7 @@ module Notifications
       notify('global', UserPeerIdNotificationSerializer.new(user).to_json)
     end
 
-  private
+private
 
     def notify(channel, payload)
       Notifications::Queue.notify(channel, payload)

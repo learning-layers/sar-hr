@@ -22,7 +22,7 @@ RSpec::Matchers.define :match_schema do |schema|
     "match the JSON schema '#{schema}'"
   end
 
-  private
+private
 
   def messages
     if @result.respond_to? :join
