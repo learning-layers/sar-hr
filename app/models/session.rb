@@ -1,7 +1,7 @@
 class Session < ActiveRecord::Base
   TTL = 1.hour
 
-  after_initialize :default_values
+  after_initialize :default_values, unless: :persisted?
 
   belongs_to :user
 

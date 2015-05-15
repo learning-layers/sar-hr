@@ -1,17 +1,24 @@
 RSpec.describe Session do
-  subject(:session) { Session.create!(user: create(:user)) }
+  subject(:session) { build(:session) }
+
+  describe 'factory' do
+    it { should be_valid }
+  end
 
   describe 'validations' do
     it { should validate_presence_of(:user) }
     it { should validate_presence_of(:token) }
     it { should validate_presence_of(:expires_on) }
+
+    it { should validate_uniqueness_of(:token) }
   end
 
   describe 'attributes' do
     it { should have_readonly_attribute(:token) }
 
-    it 'sets a token when created' do
-      expect(session.token).to be_a String
+    it 'sets a token using Devise#friendly_token when created' do
+      expect(Devise).to receive(:friendly_token).once.and_return('token')
+      expect(session.token).to eq('token')
     end
 
     it 'sets an expiry date when created' do
@@ -49,12 +56,16 @@ RSpec.describe Session do
     end
   end
 
-  describe '#generate_token' do
-    it 'uses Devise#friendly_token' do
-      expect(Devise).to \
-          receive(:friendly_token).at_least(:once).and_call_original
+  context 'when a session with the generated token already exists' do
+    before do
+      expect(Devise).to receive(:friendly_token).once.and_return(session.token)
+      expect(Devise).to receive(:friendly_token).once.and_return('another')
 
-      session.send(:generate_token)
+      session.save!
+    end
+
+    it 'generates another token' do
+      expect(create(:session).token).to eq('another')
     end
   end
 end
