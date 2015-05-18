@@ -69,34 +69,67 @@ RSpec.describe Session do
     end
   end
 
-  context 'when destroyed' do
-    before do
-      session.save!
-      session.user.update!(status: 'available')
+  context 'when created' do
+    context 'if the user has no other sessions' do
+      it 'sets the user\'s status to available' do
+        session.user.update!(status: 'do_not_disturb')
+        session.save!
+
+        expect(session.user.status).to eq('available')
+      end
     end
 
+    context 'if the user has only expired sessions' do
+      it 'sets the user\'s status to available' do
+        session.user.sessions.create!(expires_on: 1.hour.ago)
+        session.user.update!(status: 'do_not_disturb')
+        session.save!
+
+        expect(session.user.status).to eq('available')
+      end
+    end
+
+    context 'if the user has other active sessions' do
+      it 'does not change the user\'s status' do
+        session.user.sessions.create!
+        session.user.update!(status: 'do_not_disturb')
+        session.save!
+
+        expect(session.user.status).to eq('do_not_disturb')
+      end
+    end
+  end
+
+  context 'when destroyed' do
     context 'if the user has no sessions' do
       it 'sets the user\'s status to offline' do
+        session.save!
+        session.user.update!(status: 'do_not_disturb')
         session.destroy!
+
         expect(session.user.status).to eq('offline')
       end
     end
 
     context 'if the user has only expired sessions' do
-      before { session.user.sessions.create!(expires_on: 1.hour.ago) }
-
       it 'sets the user\'s status to offline' do
+        session.save!
+        session.user.sessions.create!(expires_on: 1.hour.ago)
+        session.user.update!(status: 'do_not_disturb')
         session.destroy!
+
         expect(session.user.status).to eq('offline')
       end
     end
 
     context 'if the user has other active sessions' do
-      before { session.user.sessions.create! }
-
       it 'does not change the user\'s status' do
+        session.save!
+        session.user.sessions.create!
+        session.user.update!(status: 'do_not_disturb')
         session.destroy!
-        expect(session.user.status).to eq('available')
+
+        expect(session.user.status).to eq('do_not_disturb')
       end
     end
   end
