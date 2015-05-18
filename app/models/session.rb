@@ -2,8 +2,8 @@ class Session < ActiveRecord::Base
   TTL = 1.hour
 
   after_initialize :default_values, unless: :persisted?
-  after_create     :set_user_available
-  after_destroy    :set_user_offline
+  after_create     :set_user_available, if: :only_alive?
+  after_destroy    :set_user_offline, if: :only_alive?
 
   belongs_to :user
 
@@ -39,15 +39,17 @@ protected
     end
   end
 
-  def set_user_available
-    user.update!(status: :available) if user.sessions.none? do |session|
+  def only_alive?
+    user.sessions.none? do |session|
       session != self && session.alive?
     end
   end
 
+  def set_user_available
+    user.update!(status: :available)
+  end
+
   def set_user_offline
-    user.update!(status: :offline) if user.sessions.none? do |session|
-      session != self && session.alive?
-    end
+    user.update!(status: :offline)
   end
 end
