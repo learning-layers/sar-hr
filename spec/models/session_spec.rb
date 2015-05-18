@@ -68,4 +68,36 @@ RSpec.describe Session do
       expect(create(:session).token).to eq('another')
     end
   end
+
+  context 'when destroyed' do
+    before do
+      session.save!
+      session.user.update!(status: 'available')
+    end
+
+    context 'if the user has no sessions' do
+      it 'sets the user\'s status to offline' do
+        session.destroy!
+        expect(session.user.status).to eq('offline')
+      end
+    end
+
+    context 'if the user has only expired sessions' do
+      before { session.user.sessions.create!(expires_on: 1.hour.ago) }
+
+      it 'sets the user\'s status to offline' do
+        session.destroy!
+        expect(session.user.status).to eq('offline')
+      end
+    end
+
+    context 'if the user has other active sessions' do
+      before { session.user.sessions.create! }
+
+      it 'does not change the user\'s status' do
+        session.destroy!
+        expect(session.user.status).to eq('available')
+      end
+    end
+  end
 end

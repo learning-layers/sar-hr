@@ -2,6 +2,7 @@ class Session < ActiveRecord::Base
   TTL = 1.hour
 
   after_initialize :default_values, unless: :persisted?
+  after_destroy    :set_user_offline
 
   belongs_to :user
 
@@ -35,5 +36,9 @@ protected
     else
       token
     end
+  end
+
+  def set_user_offline
+    user.update!(status: :offline) unless user.sessions.any? { |s| s.alive? }
   end
 end
