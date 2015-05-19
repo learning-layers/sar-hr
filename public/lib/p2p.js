@@ -18,6 +18,11 @@
 
 	var afterConnection = [];
 	var backupPart = 1;
+
+	self.colorForPeer = function() {
+		return 'blue';
+	}
+
 	self.start = function(username, func, error) {
 		me = username;
 		peer = new Peer(me, {

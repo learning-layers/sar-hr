@@ -21,7 +21,7 @@ angular.module('SARHR.call', ['ngRoute'])
 			$location.path('/list/' + id);
 			return;
 		}
-		var name = 'legroup-sar-' + id;
+		var name = data.user.peer_id;
 
 		media.setVideoSurface(document.getElementById('callVideo'));
 		media.getUserStream(function(stream) {

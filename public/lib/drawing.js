@@ -82,7 +82,7 @@
 				var path = toPath(gesture);
 
 				// Set gesture colour according to its creator
-				path.strokeColor = ui.colorForPeer(creator);
+				path.strokeColor = p2p.colorForPeer(creator);
 
 				media.switchToStream(targetStream);
 
