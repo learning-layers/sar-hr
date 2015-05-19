@@ -32,7 +32,7 @@ private
     return headers if user.nil?
 
     # Take the first active session, create one if there's none.
-    session = user.sessions.first_or_create!
+    session = user.sessions.alive.first_or_create!
 
     credential_headers = {
       'HTTP_X_USER_EMAIL' => user.email,

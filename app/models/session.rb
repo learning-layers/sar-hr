@@ -13,8 +13,11 @@ class Session < ActiveRecord::Base
 
   attr_readonly :token
 
-  # Fetch alive sessions only by default.
-  default_scope { where('expires_on > ?', Time.now) }
+  # Fetch alive sessions only
+  scope :alive, -> { where('expires_on > ?', Time.now) }
+
+  # Fetch expired sessions only
+  scope :expired, -> { where('expires_on <= ?', Time.now) }
 
   def alive?
     expires_on > Time.now
