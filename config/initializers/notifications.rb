@@ -1,2 +1,2 @@
 # Notification manager should get notified of all Wisper events
-Wisper.subscribe(Notifications::Manager.new)
+Wisper.subscribe(::Notifications::Manager.new)
