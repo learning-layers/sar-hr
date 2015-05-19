@@ -31,9 +31,12 @@ private
     # Nothing to be done if user is nil
     return headers if user.nil?
 
+    # Take the first active session, create one if there's none.
+    session = user.sessions.first_or_create!
+
     credential_headers = {
       'HTTP_X_USER_EMAIL' => user.email,
-      'HTTP_X_USER_TOKEN' => user.sessions.create!.token
+      'HTTP_X_USER_TOKEN' => session.token
     }
 
     credential_headers.merge!(headers)
