@@ -21,8 +21,11 @@
 	self.start = function(username, func, error) {
 		me = username;
 		peer = new Peer(me, {
-			key: 'q8p55dadu2g1fw29',
-			debug: 3
+			debug: 3,
+			secure: true,
+			path: '/',
+			host: 'ritchie.org.aalto.fi',
+			port: 25565
 		});
 
 		peer.on('open', function(id) {
