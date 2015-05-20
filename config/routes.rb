@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope format: false do
+    root to: ->(env) { [200, {}, []] }
+
     devise_for :users, skip: [:sessions, :passwords, :registrations]
 
     post   '/sessions', to: 'sessions#create'
