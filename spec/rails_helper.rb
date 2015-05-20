@@ -1,4 +1,5 @@
 ENV['RAILS_ENV'] ||= 'test'
+ENV['CLIENT_ORIGINS'] ||= 'http://example.com https://example.com'
 
 require 'simplecov'
 

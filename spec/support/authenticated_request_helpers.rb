@@ -23,6 +23,21 @@ module AuthenticatedRequestHelpers
     super(url, options[:params], sign_headers(options[:headers], options[:as]))
   end
 
+  def options(url, options = {})
+    params = options[:params]
+    headers = sign_headers(options[:headers], options[:as])
+
+    # Sending an OPTIONS request is kinda tricky:
+    #
+    # github.com/rails/rails/pull/14071
+    # blog.hint.com/post/75842773667/testing-options-requests-in-rails-rspec
+    reset! unless integration_session
+
+    integration_session.send(:process, :options, url, params, headers).tap do
+      copy_session_variables!
+    end
+  end
+
 private
 
   def sign_headers(headers = nil, user = nil)
