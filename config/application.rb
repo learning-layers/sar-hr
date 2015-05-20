@@ -28,14 +28,16 @@ module Heureka
     config.active_record.raise_in_transactional_callbacks = true
 
     # Configure cross-origin resource sharing
-    # TODO: Tighten up origins for the client.
-    config.middleware.insert_before 0, 'Rack::Cors' do
-      allow do
-        origins  '*'
-        resource '*', {
-          :methods => [ :get, :post, :patch, :delete, :options, :head ],
-          :headers => :any
-        }
+    if ENV['CLIENT_ORIGIN'].present?
+      config.middleware.insert_before 0, 'Rack::Cors' do
+        allow do
+          origins ENV['CLIENT_ORIGIN']
+
+          resource '*', {
+            methods: [:get, :post, :patch, :delete, :options, :head],
+            headers:  :any
+          }
+        end
       end
     end
   end
