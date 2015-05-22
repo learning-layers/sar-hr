@@ -31,7 +31,11 @@ module Heureka
     if ENV['CLIENT_ORIGINS'].present?
       config.middleware.insert_before 0, 'Rack::Cors' do
         allow do
-          origins ENV['CLIENT_ORIGINS'].split(' ')
+          # Split the origins at whitespace. A wider whitespace range is used
+          # for Heroku compatibility; when the value is entered through its web
+          # interface, it seems to convert spaces to non-breaking spaces which
+          # cannot be matched with \s.
+          origins ENV['CLIENT_ORIGINS'].split(/\p{Z}+/)
 
           resource '*', {
             methods: [:get, :post, :patch, :delete, :options, :head],
