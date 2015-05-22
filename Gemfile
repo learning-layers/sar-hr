@@ -16,6 +16,10 @@ gem 'rails-api'
 gem 'rollbar', '~> 1.5.0'
 gem 'wisper'
 
+# For generating fake records in a staging environment
+gem 'factory_girl_rails', '~> 4.0'
+gem 'faker'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
@@ -34,8 +38,6 @@ end
 group :test do
   gem 'codecov', require: false
   gem 'database_cleaner'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'json-schema'
   gem 'json_spec'
   gem 'rspec-collection_matchers'
