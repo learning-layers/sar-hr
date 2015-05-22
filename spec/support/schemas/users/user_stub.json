@@ -8,7 +8,8 @@
     "last_name",
     "title",
     "status",
-    "peer_id"
+    "peer_id",
+    "skill_ids"
   ],
   "additionalProperties": false,
   "properties": {
@@ -19,6 +20,7 @@
     "last_name":  { "type": "string" },
     "title":      { "type": "string" },
     "status":     { "enum": [ "offline", "available", "do_not_disturb" ] },
-    "peer_id":    { "type": [ "string", "null" ] }
+    "peer_id":    { "type": [ "string", "null" ] },
+    "skill_ids":  { "type": "array", "items": { "type": "integer" } }
   }
 }
