@@ -23,7 +23,7 @@ class Session < ActiveRecord::Base
 
   # If the session is alive, keeps it alive until <tt>Time.now + TTL</tt>.
   def keep_alive
-    alive? && update!(expires_on: TTL.from_now)
+    alive? && update(expires_on: TTL.from_now)
   end
 
 protected
@@ -52,10 +52,10 @@ protected
   end
 
   def set_user_available
-    user.update!(status: :available)
+    user.update(status: :available)
   end
 
   def set_user_offline
-    user.update!(status: :offline)
+    user.update(status: :offline)
   end
 end
