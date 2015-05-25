@@ -39,7 +39,7 @@ class SkillsController < ApplicationController
     head :no_content
   end
 
-private
+protected
 
   def skill_params
     params.require(:skill).permit(:name)

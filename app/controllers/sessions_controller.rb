@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
     head :no_content
   end
 
-private
+protected
 
   def user_params
     params.require(:user).permit(:email, :password)
