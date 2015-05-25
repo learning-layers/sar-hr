@@ -8,10 +8,10 @@ protected
 
   def render_missing(parameter_missing_error)
     body = {
-      :error => {
-        :code => :missing_parameter,
-        :parameters => {
-          parameter_missing_error.param => 'required'
+      error: {
+        code: :missing_parameter,
+        parameters: {
+          parameter_missing_error.param => :required
         }
       }
     }
@@ -21,9 +21,9 @@ protected
 
   def render_invalid(record_invalid_error)
     body = {
-      :error => {
-        :code => :invalid_parameters,
-        :parameters => record_invalid_error.record.errors
+      error: {
+        code: :invalid_parameters,
+        parameters: record_invalid_error.record.errors
       }
     }
 
@@ -32,8 +32,8 @@ protected
 
   def render_not_found
     body = {
-      :error => {
-        :code => :not_found
+      error: {
+        code: :not_found
       }
     }
 
@@ -42,8 +42,8 @@ protected
 
   def render_forbidden
     body = {
-      :error => {
-        :code => :forbidden
+      error: {
+        code: :forbidden
       }
     }
 
@@ -52,8 +52,8 @@ protected
 
   def render_unauthorized
     body = {
-      :error => {
-        :code => :unauthorized
+      error: {
+        code: :unauthorized
       }
     }
 

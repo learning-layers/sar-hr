@@ -14,9 +14,10 @@ module TokenAuthenticatable
 
   # Verifies whether the given token corresponds to a valid session.
   def valid_token?(token)
-    # Using Devise.secure_compare for constant-time comparison to protect
-    # against timing attacks.
-    session = sessions.find { |s| Devise.secure_compare(s.token, token) }
-    session.present? && session.alive?
+    sessions.any? do |session|
+      # Using Devise.secure_compare for constant-time comparison to protect
+      # against timing attacks.
+      Devise.secure_compare(session.token, token) && session.alive?
+    end
   end
 end

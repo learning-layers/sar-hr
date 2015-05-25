@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   skip_after_action  :verify_authorized,  only: [:create, :destroy]
 
   def create
-    email = user_params.fetch(:email)
+    email    = user_params.fetch(:email)
     password = user_params.fetch(:password)
 
     user = User.find_by_email(email)
@@ -12,7 +12,9 @@ class SessionsController < ApplicationController
       throw :warden, scope: :user
     end
 
-    render json: user.sessions.create!, status: :created
+    session = user.sessions.create!
+
+    render json: session, status: :created
   end
 
   def destroy

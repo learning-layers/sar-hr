@@ -3,7 +3,7 @@ class Session < ActiveRecord::Base
 
   after_initialize :default_values, unless: :persisted?
   after_create     :set_user_available, if: :only_alive?
-  after_destroy    :set_user_offline, if: :only_alive?
+  after_destroy    :set_user_offline,   if: :only_alive?
 
   belongs_to :user
 
@@ -13,16 +13,15 @@ class Session < ActiveRecord::Base
 
   attr_readonly :token
 
-  # Fetch alive sessions only
-  scope :alive, -> { where('expires_on > ?', Time.now) }
-
-  # Fetch expired sessions only
+  scope :alive,   -> { where('expires_on > ?',  Time.now) }
   scope :expired, -> { where('expires_on <= ?', Time.now) }
 
+  # True if this session has not expired, false otherwise.
   def alive?
     expires_on > Time.now
   end
 
+  # If the session is alive, keeps it alive until <tt>Time.now + TTL</tt>.
   def keep_alive
     alive? && update!(expires_on: TTL.from_now)
   end
@@ -37,14 +36,15 @@ protected
   def generate_token
     token = Devise.friendly_token
 
-    # Recurse to generate unique tokens only
-    if Session.find_by_token(token)
-      generate_token
-    else
-      token
+    # Recurse to generate unique tokens only.
+    if Session.exists?(token: token)
+      return generate_token
     end
+
+    token
   end
 
+  # Returns whether this session is the user's only session alive.
   def only_alive?
     user.sessions.none? do |session|
       session != self && session.alive?
