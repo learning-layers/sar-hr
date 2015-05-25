@@ -1,4 +1,11 @@
 class UserPolicy < Struct.new(:user, :user_record)
+  class Scope < Struct.new(:user, :scope)
+    def resolve
+      # List all users by default.
+      scope.all
+    end
+  end
+
   def index?
     true
   end

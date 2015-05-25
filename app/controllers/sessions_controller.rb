@@ -19,7 +19,9 @@ class SessionsController < ApplicationController
     token = request.headers['HTTP_X_USER_TOKEN']
     session = Session.find_by_token!(token)
 
-    authorize(session).destroy!
+    authorize(session)
+
+    session.destroy!
 
     head :no_content
   end

@@ -1,24 +1,41 @@
 class SkillsController < ApplicationController
   def index
-    render json: authorize(Skill.all), each_serializer: SkillStubSerializer
+    render json: policy_scope(Skill), each_serializer: SkillStubSerializer
   end
 
   def show
-    render json: authorize(Skill.find(params[:id]))
+    skill = Skill.find(params[:id])
+
+    authorize(skill)
+
+    render json: skill
   end
 
   def create
-    render json: authorize(Skill.create!(skill_params)), status: :created
+    skill = Skill.create!(skill_params)
+
+    authorize(skill)
+
+    render json: skill, status: :created
   end
 
   def update
-    skill = authorize(Skill.find(params[:id]))
+    skill = Skill.find(params[:id])
+
+    authorize(skill)
+
     skill.update!(skill_params)
+
     render json: skill
   end
 
   def destroy
-    authorize(Skill.find(params[:id])).delete
+    skill = Skill.find(params[:id])
+
+    authorize(skill)
+
+    skill.destroy!
+
     head :no_content
   end
 

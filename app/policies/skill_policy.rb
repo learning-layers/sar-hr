@@ -1,4 +1,11 @@
 class SkillPolicy < Struct.new(:user, :skill)
+  class Scope < Struct.new(:user, :scope)
+    def resolve
+      # List all skills by default.
+      scope.all
+    end
+  end
+
   def index?
     true
   end

@@ -1,24 +1,41 @@
 class UsersController < ApplicationController
   def index
-    render json: authorize(User.all), each_serializer: UserStubSerializer
+    render json: policy_scope(User), each_serializer: UserStubSerializer
   end
 
   def show
-    render json: authorize(User.find(params[:id]))
+    user = User.find(params[:id])
+
+    authorize(user)
+
+    render json: user
   end
 
   def create
-    render json: authorize(User.create!(user_params)), status: :created
+    user = User.create!(user_params)
+
+    authorize(user)
+
+    render json: user, status: :created
   end
 
   def update
-    user = authorize(User.find(params[:id]))
+    user = User.find(params[:id])
+
+    authorize(user)
+
     user.update!(user_params)
+
     render json: user
   end
 
   def destroy
-    authorize(User.find(params[:id])).delete
+    user = User.find(params[:id])
+
+    authorize(user)
+
+    user.destroy!
+
     head :no_content
   end
 
