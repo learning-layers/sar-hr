@@ -1,7 +1,9 @@
 RSpec.describe ApplicationController do
   describe 'access control' do
     it { should use_before_action(:authenticate_user!) }
+
     it { should use_after_action(:verify_authorized) }
+    it { should use_after_action(:verify_policy_scoped) }
   end
 
   describe 'parameter filtering' do
