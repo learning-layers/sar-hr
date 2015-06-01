@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    render json: policy_scope(User), each_serializer: UserStubSerializer
+    render json: policy_scope(User)
   end
 
   def show

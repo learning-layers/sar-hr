@@ -1,6 +1,6 @@
 class SkillsController < ApplicationController
   def index
-    render json: policy_scope(Skill), each_serializer: SkillStubSerializer
+    render json: policy_scope(Skill)
   end
 
   def show

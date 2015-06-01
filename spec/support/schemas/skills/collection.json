@@ -7,7 +7,7 @@
   "properties": {
     "skills": {
       "type": "array",
-      "items": { "$ref": "skill_stub.json" }
+      "items": { "$ref": "skill.json" }
     }
   }
 }
