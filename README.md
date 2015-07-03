@@ -6,6 +6,11 @@ SAR-HR
 
 **Backend service for the Social Augmented Reality HR component.**
 
+### Wiki ###
+
+If you don’t find what you need in this README, there’s a bunch of
+documentation [in the wiki](https://github.com/learning-layers/sar-hr/wiki).
+
 ### Setting up for development ###
 
 Vagrant makes this easy peasy lemon squeezy by creating and configuring a
