@@ -204,6 +204,9 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    rspec_json_schema_matcher (0.1.1)
+      json-schema (~> 2.5)
+      rspec (~> 3.0)
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
@@ -243,7 +246,6 @@ DEPENDENCIES
   faker
   guard
   guard-rspec
-  json-schema
   json_spec
   pg
   pry
@@ -259,6 +261,7 @@ DEPENDENCIES
   rspec-collection_matchers
   rspec-its
   rspec-rails (~> 3.0)
+  rspec_json_schema_matcher
   shoulda-matchers
   simplecov
   spring

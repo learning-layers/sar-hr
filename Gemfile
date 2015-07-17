@@ -38,8 +38,8 @@ end
 group :test do
   gem 'codecov', require: false
   gem 'database_cleaner'
-  gem 'json-schema'
   gem 'json_spec'
+  gem 'rspec_json_schema_matcher'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
   gem 'shoulda-matchers'
