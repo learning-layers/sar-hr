@@ -3,8 +3,14 @@ SAR-HR
 
 [![Build status][build-badge]][build]
 [![Coverage][coverage-badge]][coverage]
+[![Code Climate][climate-badge]][climate]
 
 **Backend service for the Social Augmented Reality HR component.**
+
+### Wiki ###
+
+If you don’t find what you need in this README, there’s a bunch of
+documentation [in the wiki](https://github.com/learning-layers/sar-hr/wiki).
 
 ### Setting up for development ###
 
@@ -101,3 +107,6 @@ SOFTWARE.
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/learning-layers/sar-hr.svg
 [coverage]: http://codecov.io/github/learning-layers/sar-hr
+
+[climate-badge]: https://img.shields.io/codeclimate/github/kabisaict/flow.svg
+[climate]: https://codeclimate.com/github/learning-layers/sar-hr
