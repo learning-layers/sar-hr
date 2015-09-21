@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
     sessions = session.user.sessions
     other_sessions = sessions - [session]
 
-    for other_sessions in other_sessions
+    for other_session in other_sessions
       other_session.destroy! if policy(other_session).destroy?
     end
 
