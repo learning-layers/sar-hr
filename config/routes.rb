@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     post   '/sessions', to: 'sessions#create'
     delete '/sessions', to: 'sessions#destroy'
+    post '/sessions/force_unique', to: 'sessions#force_unique'
 
     scope only: [:index, :show, :create, :update, :destroy] do
       resources :users
